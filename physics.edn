@@ -1,0 +1,32 @@
+;; What this occupation's robot physically does, declared for
+;; kotoba.robotics.process (kotoba-lang/robotics). `kbb -M:physics` runs it.
+;;
+;; README "Robotics premise": a property-condition documentation robot performs
+;; damage photographing, assessment-report assembly and physical filing (ISCO
+;; 3315 valuers and loss assessors). Its physical work: walking a 200 m
+;; inspection route over whatever floor the property has, and raising a camera
+;; on its arm to photograph ceiling-level damage.
+;;
+;; Every number without a cited source is marked `estimate` in its :basis.
+;; Replacing an estimate with a sourced value is this bot's growth work.
+{:physics/schema "itonami.physical-ai.spec.v1"
+ :repo "cloud-itonami/cloud-itonami-isco-3315"
+ :cases
+ [{:id :inspection-route-surface
+   :kind :transport
+   :procedure "documentation robot drives a 200 m inspection route; the floor ranges from hard tile to lawn and gravel yard"
+   :params {:mass-kg 30.0 :payload-kg 5.0 :distance-m 200.0 :v-max-mps 1.0 :a-max-mps2 0.5
+            :brake-decel-mps2 0.8 :drive-force-n 150.0 :cog-height-m 0.50 :support-half-length-m 0.25}
+   :sweep {:param :crr :values [0.01 0.02 0.05 0.08 0.12]}
+   :quantity :energy-j
+   :limit {:max 5000.0 :basis "estimate: per-route share of a ~150 Wh pack sized for ~100 routes between charges"}
+   :boundary {:lo 0.005 :hi 0.3}}
+  {:id :camera-to-ceiling-damage
+   :kind :manipulator
+   :procedure "arm raises the documentation camera from its stowed pose to ceiling-level damage"
+   :params {:l1-m 0.50 :l2-m 0.45 :m1-kg 3.0 :m2-kg 2.0
+            :from [0.30 0.20] :to [0.20 0.85] :duration-s 2.0 :steps 400}
+   :sweep {:param :payload-kg :values [0.5 1.0 2.0 3.0 4.0]}
+   :quantity :peak-tau1-nm
+   :limit {:max 35.0 :basis "estimate: continuous shoulder torque of a light inspection arm"}
+   :boundary {:lo 0.1 :hi 15.0}}]}
