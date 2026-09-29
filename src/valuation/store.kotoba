@@ -1,6 +1,6 @@
 (ns valuation.store
   "SSoT for the ISCO-08 3315 independent valuation and loss assessment
-  practice actor (itonami actor pattern, ADR-2607011000 / CLAUDE.md Actors
+  practice actor (itonami actor pattern, ADR-2607011000 / AGENTS.md Actors
   section; README's 'Robotics premise' — a property-condition documentation
   robot performs damage photographing, assessment-report assembly and physical
   filing under this advisor/governor pair, which never dispatches hardware
